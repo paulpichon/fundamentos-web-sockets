@@ -20,6 +20,9 @@ class Server {
 
         // Rutas de mi aplicación
         this.routes();
+
+        //Configuracion de sockets
+        this.sockets();
     }
 
 
@@ -38,6 +41,22 @@ class Server {
     routes() {
         //this.app.use( this.paths.auth, require('../routes/auth'));
     }
+
+    //implementar metodos para sockets
+    sockets() {
+        //creacion de socket
+        this.io.on("connection", (socket) => {
+            console.log("Cliente conectado", socket.id );
+
+
+            //desconctar el cliente
+            socket.on('disconnect', () => {
+                console.log('Cliente desconectado');
+            });
+
+        });
+    }
+
 
     listen() {
         //este this.server es el de SOCKET.IO no el de EXPRESS
