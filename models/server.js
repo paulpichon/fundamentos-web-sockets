@@ -46,8 +46,6 @@ class Server {
     sockets() {
         //creacion de socket
         this.io.on("connection", (socket) => {
-            console.log("Cliente conectado", socket.id );
-
 
             //desconctar el cliente
             socket.on('disconnect', () => {
@@ -57,7 +55,9 @@ class Server {
             //escuchar el mensaje .emit() que esta en el socket-client.js
             //payload ---> trae la info desde el emit()
             socket.on('enviar-mensaje', ( payload ) => {
-                console.log( payload );
+                //mensaje a todos los clientes conectados
+                this.io.emit('enviar-mensaje', payload);
+
             });
 
         });

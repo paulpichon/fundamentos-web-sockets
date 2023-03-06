@@ -11,7 +11,6 @@ const socket = io();
 //listeners -> eventlister
 //saber cuando alguien se conecta al servidor
 socket.on('connect', () => {
-    console.log('conectado');
 
     //ocultar lblOffline
     lblOffline.style.display = 'none';
@@ -32,6 +31,10 @@ socket.on('disconnect', () => {
 
 });
 
+//escuchar el evento enviar mensaje
+socket.on('enviar-mensaje', ( payload ) => {
+    console.log( payload );
+});
 
 //listener
 btnEnviar.addEventListener( 'click', () => {
