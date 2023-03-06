@@ -54,6 +54,12 @@ class Server {
                 console.log('Cliente desconectado');
             });
 
+            //escuchar el mensaje .emit() que esta en el socket-client.js
+            //payload ---> trae la info desde el emit()
+            socket.on('enviar-mensaje', ( payload ) => {
+                console.log( payload );
+            });
+
         });
     }
 
