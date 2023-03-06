@@ -4,8 +4,13 @@ const cors = require('cors');
 class Server {
 
     constructor() {
-        this.app  = express();
-        this.port = process.env.PORT;
+        this.app    = express();
+        this.port   = process.env.PORT;
+        
+        //PARTE DE LA CONFIGURACION DE SOCKET IO
+        this.server = require('http').createServer( this.app);
+        this.io = require('socket.io')(this.server);
+
         //NO SE USARA NINGUN PATH SOLO HACEMOS LA REFERENCIAS DEL THIS.PATHS POR SI EN ALGUN MOMENTO LLEGO A USARLO
         this.paths = {};
 
@@ -35,7 +40,8 @@ class Server {
     }
 
     listen() {
-        this.app.listen( this.port, () => {
+        //este this.server es el de SOCKET.IO no el de EXPRESS
+        this.server.listen( this.port, () => {
             console.log('Servidor corriendo en puerto', this.port );
         });
     }
