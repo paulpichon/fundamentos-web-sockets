@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+//importando desde controller.js
+const { socketController } = require('../sockets/controller');
 
 class Server {
 
@@ -45,27 +47,7 @@ class Server {
     //implementar metodos para sockets
     sockets() {
         //creacion de socket
-        this.io.on("connection", (socket) => {
-
-            //desconctar el cliente
-            socket.on('disconnect', () => {
-                //console.log('Cliente desconectado');
-            });
-
-            //escuchar el mensaje .emit() que esta en el socket-client.js
-            //payload ---> trae la info desde el emit()
-            socket.on('enviar-mensaje', ( payload, callback ) => {
-                
-                const id = 123456789;
-                //ejecutamos el callback mandando el ID
-                callback( id );
-                
-                //mensaje a todos los clientes conectados
-                //this.io.emit('enviar-mensaje', payload);
-
-            });
-
-        });
+        this.io.on("connection", socketController);
     }
 
 
